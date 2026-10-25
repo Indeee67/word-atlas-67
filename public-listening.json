@@ -1,0 +1,442 @@
+{
+  "format": "word-atlas-cet4-public-listening-v1",
+  "version": "2026-10-25",
+  "materials": [
+    {
+      "section": "news",
+      "title": "校园新增夜间自习巴士",
+      "transcript": "A university has introduced a late-night shuttle bus for students studying at the central library. The service runs every thirty minutes between nine in the evening and one in the morning. Students can board at three stops near the library, the science building, and the student center. University officials say the new route was developed after a student survey showed concerns about walking home alone after dark. The buses are free, but passengers must show a valid student card. The university will review passenger numbers at the end of the semester before deciding whether to continue the service.",
+      "questions": [
+        [
+          "Why was the late-night shuttle introduced?",
+          [
+            "To improve students’ safety after late study.",
+            "To replace every daytime bus.",
+            "To transport sports equipment.",
+            "To reduce the library’s opening hours."
+          ],
+          0,
+          "The student survey raised concerns about walking home late."
+        ],
+        [
+          "What must passengers show to use the service?",
+          [
+            "A library book.",
+            "A valid student card.",
+            "A payment receipt.",
+            "A course timetable."
+          ],
+          1,
+          "The announcement says passengers must show a valid student card."
+        ]
+      ]
+    },
+    {
+      "section": "news",
+      "title": "社区旧衣回收计划",
+      "transcript": "A neighborhood community center will begin collecting unwanted clothes next Saturday. Residents are encouraged to bring clean shirts, coats, and shoes that are still in good condition. Volunteers will sort the items and distribute them to families who need them. Clothing that cannot be reused will be sent to a textile recycling company. The center hopes the project will reduce household waste and help residents support one another. Collection boxes will be available in the main entrance every weekend throughout November.",
+      "questions": [
+        [
+          "What will volunteers do with usable clothes?",
+          [
+            "Sell them online.",
+            "Send them overseas immediately.",
+            "Give them to families in need.",
+            "Turn them into cleaning cloths."
+          ],
+          2,
+          "Usable clothes will be distributed to families who need them."
+        ],
+        [
+          "Where can residents leave their clothes?",
+          [
+            "At the main entrance of the community center.",
+            "Outside the train station.",
+            "At a local supermarket.",
+            "In the town museum."
+          ],
+          0,
+          "Collection boxes will be placed at the main entrance."
+        ]
+      ]
+    },
+    {
+      "section": "news",
+      "title": "城市图书馆推出数字借阅",
+      "transcript": "The city library has launched a digital lending service that allows members to borrow electronic books and audiobooks from home. Users can access the new collection through the library website using their existing membership number. Up to five titles may be borrowed at the same time for two weeks. The library director explained that the service is especially useful for people who live far from a branch or have difficulty traveling. Staff will offer free demonstrations on Wednesday afternoons to help first-time users get started.",
+      "questions": [
+        [
+          "Who is expected to benefit especially from the new service?",
+          [
+            "People living far from a library branch.",
+            "People who wish to sell books.",
+            "People working for publishing companies.",
+            "People without internet access."
+          ],
+          0,
+          "The director highlights residents who live far from a branch or have travel difficulties."
+        ],
+        [
+          "What will staff offer on Wednesday afternoons?",
+          [
+            "Language examinations.",
+            "Free demonstrations of the service.",
+            "Book-writing competitions.",
+            "Free computer equipment."
+          ],
+          1,
+          "Library staff will show first-time users how the service works."
+        ]
+      ]
+    },
+    {
+      "section": "news",
+      "title": "校园食堂减少食物浪费",
+      "transcript": "A university dining hall has started a campaign to reduce food waste. For the next month, students will be able to choose smaller portions of rice and vegetables and return for more if they are still hungry. The dining hall will display daily information showing how much food has been thrown away. Organizers say the purpose is not to encourage students to eat less but to help them take only what they need. If the results are positive, the university plans to introduce the same approach in other dining halls.",
+      "questions": [
+        [
+          "How does the campaign aim to reduce waste?",
+          [
+            "By closing the dining hall early.",
+            "By offering smaller portions and allowing refills.",
+            "By increasing meal prices.",
+            "By serving only one dish each day."
+          ],
+          1,
+          "Students can choose smaller portions and return for more."
+        ],
+        [
+          "What might happen if the campaign is successful?",
+          [
+            "The dining hall will stop serving rice.",
+            "Students will need reservations.",
+            "The program may expand to other dining halls.",
+            "The university will remove all food counters."
+          ],
+          2,
+          "Organizers plan to expand the approach if the results are positive."
+        ]
+      ]
+    },
+    {
+      "section": "dialogue",
+      "title": "课程论文与资料来源",
+      "transcript": "Woman: How is your history essay going? Man: I have written the introduction, but I am struggling to find reliable sources. Woman: Have you searched the university library database? It includes academic journals you cannot always find through a normal web search. Man: I tried, but there were too many results. Woman: Use a few specific keywords and limit the publication dates. That should make the search more manageable. Man: Good idea. I was also thinking of interviewing my grandfather about the period. Woman: That could make your essay more interesting, but remember to support personal stories with published evidence. Man: You are right. I will visit the library tomorrow and revise my outline afterward. Woman: If you have time, the librarian can also show you how to cite the articles correctly.",
+      "questions": [
+        [
+          "What difficulty does the man face?",
+          [
+            "He has lost his notes.",
+            "He cannot find reliable sources.",
+            "He has missed a history examination.",
+            "He dislikes the essay topic."
+          ],
+          1,
+          "He explicitly says he is struggling to find reliable sources."
+        ],
+        [
+          "What does the woman recommend for searching the database?",
+          [
+            "Using specific keywords and date limits.",
+            "Searching only for newspaper photographs.",
+            "Asking classmates to write the essay.",
+            "Avoiding academic journals."
+          ],
+          0,
+          "She suggests keywords and publication-date filters."
+        ],
+        [
+          "What might the librarian help the man do?",
+          [
+            "Reserve a train ticket.",
+            "Arrange an interview.",
+            "Cite academic articles correctly.",
+            "Choose a new university course."
+          ],
+          2,
+          "The librarian can show him correct citation practices."
+        ]
+      ]
+    },
+    {
+      "section": "dialogue",
+      "title": "自行车维修与周末计划",
+      "transcript": "Man: Are you still joining the cycling trip on Saturday? Woman: I hope so, but my bicycle has been making a strange noise whenever I brake. Man: You should get that checked before we leave. There is a repair shop near the sports center. Woman: I have passed it, but I do not know when it closes. Man: I think it is open until six on weekdays. The mechanic repaired my bicycle last month. Woman: Then I will take mine there tomorrow after class. How long is Saturday’s route? Man: About twenty kilometers, mostly along the river. We will stop halfway for lunch. Woman: That sounds manageable. I will bring water and a light jacket in case the weather changes. Man: Great. We are meeting outside the sports center at eight thirty.",
+      "questions": [
+        [
+          "Why is the woman uncertain about the cycling trip?",
+          [
+            "Her bicycle may need repairs.",
+            "She has another examination.",
+            "She cannot find the meeting place.",
+            "She has lost her helmet."
+          ],
+          0,
+          "She reports a strange noise when braking."
+        ],
+        [
+          "Where does the man suggest going?",
+          [
+            "A large supermarket.",
+            "A repair shop near the sports center.",
+            "A train station workshop.",
+            "A bicycle exhibition."
+          ],
+          1,
+          "The repair shop is located near the sports center."
+        ],
+        [
+          "What is the plan for Saturday?",
+          [
+            "Ride twenty kilometers with a lunch stop.",
+            "Cycle fifty kilometers without breaks.",
+            "Spend the morning repairing bicycles.",
+            "Meet at the river after lunch."
+          ],
+          0,
+          "The route is roughly twenty kilometers and includes a stop halfway."
+        ]
+      ]
+    },
+    {
+      "section": "dialogue",
+      "title": "面试准备与志愿经历",
+      "transcript": "Woman: You seem worried about tomorrow’s job interview. Man: I am. The position involves coordinating events, but I do not have any formal work experience. Woman: Didn’t you help organize the university charity fair last spring? Man: Yes. I contacted local businesses, arranged volunteer shifts, and dealt with a last-minute change in the weather. Woman: That is exactly the kind of example you can discuss. Explain the problem, the action you took, and the result. Man: Should I mention that our first plan did not work? Woman: Absolutely. Employers are often interested in how people respond when things go wrong. Man: I had not thought of it that way. I will prepare a short explanation tonight. Woman: And make sure you have a question about the team’s daily responsibilities.",
+      "questions": [
+        [
+          "What concerns the man?",
+          [
+            "He has no formal work experience.",
+            "He forgot the interview date.",
+            "He does not like event planning.",
+            "He must travel abroad."
+          ],
+          0,
+          "He says he lacks formal work experience."
+        ],
+        [
+          "Which experience does the woman suggest discussing?",
+          [
+            "A family celebration.",
+            "A university charity fair.",
+            "A school sporting event.",
+            "A summer language course."
+          ],
+          1,
+          "She reminds him of helping organize the charity fair."
+        ],
+        [
+          "Why should the man discuss a failed plan?",
+          [
+            "It proves he worked alone.",
+            "It shows he dislikes change.",
+            "It demonstrates how he handles problems.",
+            "It explains why the event was canceled."
+          ],
+          2,
+          "Employers value how candidates respond to unexpected difficulties."
+        ]
+      ]
+    },
+    {
+      "section": "dialogue",
+      "title": "学生宿舍与节能措施",
+      "transcript": "Man: Did you read the notice about energy use in our dormitory? Woman: Yes. The university wants us to reduce electricity consumption by ten percent this term. Man: I thought that sounded difficult, but some of the suggestions are simple. Woman: Such as turning off lights when leaving a room and unplugging unused chargers. Man: Exactly. They are also replacing old hallway bulbs with more efficient ones. Woman: That should help. Are students expected to report their individual usage? Man: No, the university will measure electricity for the entire building, not individual rooms. Woman: That is better. I might put a reminder near our door so everyone remembers the lights. Man: Good idea. The resident assistants are organizing a short information session tomorrow evening.",
+      "questions": [
+        [
+          "What is the university’s target?",
+          [
+            "To reduce electricity use by ten percent.",
+            "To replace every dormitory building.",
+            "To ban the use of laptops.",
+            "To increase lighting in all rooms."
+          ],
+          0,
+          "The university aims for a ten percent reduction."
+        ],
+        [
+          "How will electricity use be measured?",
+          [
+            "For each student separately.",
+            "For the whole building.",
+            "Only for the hallways.",
+            "Only during weekends."
+          ],
+          1,
+          "The man clarifies it will be measured at building level."
+        ],
+        [
+          "What do resident assistants plan to do?",
+          [
+            "Hold an information session.",
+            "Inspect every charger.",
+            "Remove students’ lights.",
+            "Change room assignments."
+          ],
+          0,
+          "Resident assistants are organizing a short information session."
+        ]
+      ]
+    },
+    {
+      "section": "passage",
+      "title": "城市步行空间的价值",
+      "transcript": "Walkable streets are becoming an important part of urban planning. When schools, shops, and public services can be reached on foot, residents may spend less time in traffic and more time interacting with their neighbors. Safe sidewalks, clear street crossings, and places to rest are especially important for older adults and children. Some local businesses also benefit because people walking past shops are more likely to stop and browse. However, improvements must be planned carefully. A wider sidewalk is not useful if it suddenly ends at a dangerous intersection. City planners therefore need to consider the entire route rather than individual streets.",
+      "questions": [
+        [
+          "What is the main topic of the passage?",
+          [
+            "The history of city buses.",
+            "The benefits and planning of walkable streets.",
+            "The cost of private cars.",
+            "The importance of building taller shops."
+          ],
+          1,
+          "The passage considers walkable streets and their design."
+        ],
+        [
+          "Why should planners consider an entire route?",
+          [
+            "Because improvements need to connect safely.",
+            "Because every street requires a bicycle lane.",
+            "Because older people never travel alone.",
+            "Because all businesses close early."
+          ],
+          0,
+          "An isolated wide sidewalk may still end at a dangerous crossing."
+        ],
+        [
+          "Who especially benefits from safe sidewalks and crossings?",
+          [
+            "Airline passengers.",
+            "Professional athletes.",
+            "Older adults and children.",
+            "Office managers only."
+          ],
+          2,
+          "The speaker highlights older adults and children."
+        ]
+      ]
+    },
+    {
+      "section": "passage",
+      "title": "学习中的间隔复习",
+      "transcript": "Many students wait until the night before an examination to review everything they have learned. Although this approach may help them remember some facts for a short time, the information is often forgotten quickly. Researchers recommend spreading review sessions over several days or weeks. A student might study a topic today, revisit it two days later, and test themselves again the following week. Retrieving information from memory without immediately looking at the answer is also useful. Small mistakes during practice can reveal which concepts need attention. The goal is not to study for more hours, but to use study time more effectively.",
+      "questions": [
+        [
+          "What practice does the speaker recommend?",
+          [
+            "Studying everything the night before a test.",
+            "Spreading review over time.",
+            "Reading the same page without stopping.",
+            "Avoiding practice questions."
+          ],
+          1,
+          "The key recommendation is distributed, spaced review."
+        ],
+        [
+          "Why can mistakes during practice be useful?",
+          [
+            "They identify topics that need more work.",
+            "They guarantee a high examination score.",
+            "They reduce the need for sleep.",
+            "They remove the need for textbooks."
+          ],
+          0,
+          "Mistakes reveal gaps in understanding."
+        ],
+        [
+          "What is the overall goal?",
+          [
+            "To spend more hours studying.",
+            "To memorize only a few definitions.",
+            "To use study time more effectively.",
+            "To eliminate all examinations."
+          ],
+          2,
+          "The passage concludes that efficiency matters more than duration."
+        ]
+      ]
+    },
+    {
+      "section": "passage",
+      "title": "小企业与客户反馈",
+      "transcript": "For a small business, customer feedback can provide information that sales numbers alone cannot show. A customer might buy a product but still find the instructions confusing or the delivery process inconvenient. Short surveys, conversations with employees, and careful attention to complaints can help owners identify problems early. However, businesses should not treat every suggestion as an instruction. Owners must look for patterns across different customers and consider whether a proposed change is practical. When a business explains the improvements it has made, customers may feel that their opinions are taken seriously. Over time, this can strengthen trust and encourage customers to return.",
+      "questions": [
+        [
+          "Why is customer feedback valuable?",
+          [
+            "It explains problems that sales figures may miss.",
+            "It makes advertising completely unnecessary.",
+            "It guarantees every product will be popular.",
+            "It allows owners to avoid talking to employees."
+          ],
+          0,
+          "Feedback reveals usability and service issues that sales totals do not show."
+        ],
+        [
+          "How should owners respond to suggestions?",
+          [
+            "Follow each suggestion immediately.",
+            "Look for patterns and practical improvements.",
+            "Ignore complaints from new customers.",
+            "Only consider comments about prices."
+          ],
+          1,
+          "The speaker recommends patterns and practical judgment."
+        ],
+        [
+          "What can explaining changes accomplish?",
+          [
+            "Reduce the number of employees.",
+            "Stop all online reviews.",
+            "Strengthen customer trust.",
+            "Make product instructions longer."
+          ],
+          2,
+          "Customers may feel heard and become more loyal."
+        ]
+      ]
+    },
+    {
+      "section": "passage",
+      "title": "志愿服务与社区联系",
+      "transcript": "Volunteering is often described as a way to help others, but it can also change how people understand their communities. Students who assist at food banks, neighborhood gardens, or public events meet residents with different experiences and needs. These conversations may challenge their assumptions and develop communication skills. A successful volunteer program should offer clear tasks and enough training so that participants can contribute effectively. It should also listen to the people receiving support rather than deciding what they need without asking. When volunteers return regularly, they build relationships that can last beyond a single event.",
+      "questions": [
+        [
+          "What can volunteering help students develop?",
+          [
+            "An understanding of different community needs.",
+            "A guarantee of full-time employment.",
+            "The ability to avoid teamwork.",
+            "A way to skip all academic assignments."
+          ],
+          0,
+          "Students meet residents with varied experiences and needs."
+        ],
+        [
+          "What does the speaker say a good program should provide?",
+          [
+            "More difficult examinations.",
+            "Clear tasks and enough training.",
+            "No contact with local residents.",
+            "Rewards for every hour worked."
+          ],
+          1,
+          "Effective programs need tasks and training."
+        ],
+        [
+          "Why is regular participation valuable?",
+          [
+            "It reduces the need for communication.",
+            "It replaces professional social services.",
+            "It helps build lasting relationships.",
+            "It ensures every event is identical."
+          ],
+          2,
+          "Returning regularly builds longer-term relationships."
+        ]
+      ]
+    }
+  ]
+}

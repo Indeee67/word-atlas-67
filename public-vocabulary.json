@@ -1,0 +1,366 @@
+{
+  "format": "word-atlas-cet4-public-vocabulary-v1",
+  "version": "2026-10-25",
+  "words": [
+    {
+      "w": "adaptable",
+      "p": "adj",
+      "z": "适应能力强的",
+      "c": "people",
+      "ph": [
+        [
+          "adaptable to change",
+          "能够适应变化"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed adaptable to change during the meeting.",
+          "我们在会议中讨论了“能够适应变化”。"
+        ]
+      ]
+    },
+    {
+      "w": "allocate",
+      "p": "v",
+      "z": "分配；配置",
+      "c": "business",
+      "ph": [
+        [
+          "allocate resources",
+          "分配资源"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed allocate resources during the meeting.",
+          "我们在会议中讨论了“分配资源”。"
+        ]
+      ]
+    },
+    {
+      "w": "biodegradable",
+      "p": "adj",
+      "z": "可生物降解的",
+      "c": "nature",
+      "ph": [
+        [
+          "biodegradable packaging",
+          "可生物降解的包装"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed biodegradable packaging during the meeting.",
+          "我们在会议中讨论了“可生物降解的包装”。"
+        ]
+      ]
+    },
+    {
+      "w": "biodiversity",
+      "p": "n",
+      "z": "生物多样性",
+      "c": "nature",
+      "ph": [
+        [
+          "protect biodiversity",
+          "保护生物多样性"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed protect biodiversity during the meeting.",
+          "我们在会议中讨论了“保护生物多样性”。"
+        ]
+      ]
+    },
+    {
+      "w": "collaborative",
+      "p": "adj",
+      "z": "合作的；协作的",
+      "c": "education",
+      "ph": [
+        [
+          "collaborative learning",
+          "协作学习"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed collaborative learning during the meeting.",
+          "我们在会议中讨论了“协作学习”。"
+        ]
+      ]
+    },
+    {
+      "w": "credibility",
+      "p": "n",
+      "z": "可信度；公信力",
+      "c": "language",
+      "ph": [
+        [
+          "source credibility",
+          "信息来源的可信度"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed source credibility during the meeting.",
+          "我们在会议中讨论了“信息来源的可信度”。"
+        ]
+      ]
+    },
+    {
+      "w": "digitalize",
+      "p": "v",
+      "z": "数字化",
+      "c": "technology",
+      "ph": [
+        [
+          "digitalize records",
+          "将记录数字化"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed digitalize records during the meeting.",
+          "我们在会议中讨论了“将记录数字化”。"
+        ]
+      ]
+    },
+    {
+      "w": "distraction",
+      "p": "n",
+      "z": "使人分心的事物",
+      "c": "education",
+      "ph": [
+        [
+          "avoid distractions",
+          "避免干扰"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed avoid distractions during the meeting.",
+          "我们在会议中讨论了“避免干扰”。"
+        ]
+      ]
+    },
+    {
+      "w": "empathy",
+      "p": "n",
+      "z": "同理心",
+      "c": "people",
+      "ph": [
+        [
+          "show empathy",
+          "表现出同理心"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed show empathy during the meeting.",
+          "我们在会议中讨论了“表现出同理心”。"
+        ]
+      ]
+    },
+    {
+      "w": "feasibility",
+      "p": "n",
+      "z": "可行性",
+      "c": "business",
+      "ph": [
+        [
+          "assess feasibility",
+          "评估可行性"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed assess feasibility during the meeting.",
+          "我们在会议中讨论了“评估可行性”。"
+        ]
+      ]
+    },
+    {
+      "w": "flexibility",
+      "p": "n",
+      "z": "灵活性",
+      "c": "people",
+      "ph": [
+        [
+          "workplace flexibility",
+          "工作场所灵活性"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed workplace flexibility during the meeting.",
+          "我们在会议中讨论了“工作场所灵活性”。"
+        ]
+      ]
+    },
+    {
+      "w": "implement",
+      "p": "v",
+      "z": "实施；执行",
+      "c": "actions",
+      "ph": [
+        [
+          "implement a plan",
+          "实施计划"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed implement a plan during the meeting.",
+          "我们在会议中讨论了“实施计划”。"
+        ]
+      ]
+    },
+    {
+      "w": "inclusive",
+      "p": "adj",
+      "z": "包容性的",
+      "c": "society",
+      "ph": [
+        [
+          "inclusive education",
+          "包容性教育"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed inclusive education during the meeting.",
+          "我们在会议中讨论了“包容性教育”。"
+        ]
+      ]
+    },
+    {
+      "w": "infrastructure",
+      "p": "n",
+      "z": "基础设施",
+      "c": "society",
+      "ph": [
+        [
+          "public infrastructure",
+          "公共基础设施"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed public infrastructure during the meeting.",
+          "我们在会议中讨论了“公共基础设施”。"
+        ]
+      ]
+    },
+    {
+      "w": "interpersonal",
+      "p": "adj",
+      "z": "人际关系的",
+      "c": "people",
+      "ph": [
+        [
+          "interpersonal skills",
+          "人际交往能力"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed interpersonal skills during the meeting.",
+          "我们在会议中讨论了“人际交往能力”。"
+        ]
+      ]
+    },
+    {
+      "w": "navigate",
+      "p": "v",
+      "z": "导航；找到方向",
+      "c": "travel",
+      "ph": [
+        [
+          "navigate a route",
+          "规划路线"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed navigate a route during the meeting.",
+          "我们在会议中讨论了“规划路线”。"
+        ]
+      ]
+    },
+    {
+      "w": "resilience",
+      "p": "n",
+      "z": "韧性；恢复力",
+      "c": "people",
+      "ph": [
+        [
+          "build resilience",
+          "培养韧性"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed build resilience during the meeting.",
+          "我们在会议中讨论了“培养韧性”。"
+        ]
+      ]
+    },
+    {
+      "w": "reusable",
+      "p": "adj",
+      "z": "可重复使用的",
+      "c": "nature",
+      "ph": [
+        [
+          "reusable container",
+          "可重复使用的容器"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed reusable container during the meeting.",
+          "我们在会议中讨论了“可重复使用的容器”。"
+        ]
+      ]
+    },
+    {
+      "w": "transparency",
+      "p": "n",
+      "z": "透明度；公开性",
+      "c": "business",
+      "ph": [
+        [
+          "increase transparency",
+          "提高透明度"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed increase transparency during the meeting.",
+          "我们在会议中讨论了“提高透明度”。"
+        ]
+      ]
+    },
+    {
+      "w": "workshop",
+      "p": "n",
+      "z": "讲习班；工作坊",
+      "c": "education",
+      "ph": [
+        [
+          "attend a workshop",
+          "参加工作坊"
+        ]
+      ],
+      "ex": [
+        [
+          "We discussed attend a workshop during the meeting.",
+          "我们在会议中讨论了“参加工作坊”。"
+        ]
+      ]
+    }
+  ]
+}
