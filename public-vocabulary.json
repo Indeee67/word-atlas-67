@@ -362,5 +362,13 @@
         ]
       ]
     }
-  ]
+  ],
+  "note": "原有公共扩展词汇；约4,901条四级词汇由网站首次联网自动加载并缓存，个人无需手动导入。",
+  "automatic_extended_source": {
+    "name": "KyleBing/english-vocabulary CET4 random-order sentence list",
+    "count": 4901,
+    "url": "https://raw.githubusercontent.com/KyleBing/english-vocabulary/master/full_line_jsonl/sentence/%E4%B9%B1%E5%BA%8F/%E5%9B%9B%E7%BA%A7.jsonl",
+    "license": "BSD-3-Clause",
+    "source": "https://github.com/KyleBing/english-vocabulary"
+  }
 }

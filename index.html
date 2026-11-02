@@ -160,6 +160,12 @@ main{padding-top:29px}.eyebrow{color:var(--mint);text-transform:uppercase;font-w
 .exam-speaker-tag.man{color:#9dcafa}
 .exam-speaker-tag.woman{color:#e5b7ea}
 
+
+.cet4-public-status{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:14px 0 16px;padding:10px 14px;border:1px solid rgba(156,227,207,.22);border-radius:12px;background:rgba(13,33,51,.52);color:#b4c7d6;font-size:12px;line-height:1.6}
+.cet4-public-dot{width:8px;height:8px;border-radius:50%;background:#6f84a1;flex-shrink:0}
+.cet4-public-dot.ready{background:#8cf7c1}.cet4-public-dot.loading{background:#f9cb80}.cet4-public-dot.error{background:#ffacb7}
+.cet4-public-retry{margin-left:auto;padding:5px 11px;border-radius:8px;border:1px solid rgba(156,227,207,.35);background:transparent;color:#8cf7c1;font:inherit;font-size:12px;cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -453,7 +459,7 @@ create policy "update own word atlas data" on public.word_atlas_sync for update 
  </section></details></main>`;
 }
 
-function renderHome(){const total=entries.size,seen=seenCount('all');return `<main class="shell"><section class="hero"><div class="eyebrow">WELCOME TO YOUR WORD ATLAS</div><h1>把每一个单词，<br>放进<span>真实的语境</span>里。</h1><p>从词书出发，按领域自由查阅。用「单词 → 短语 → 例句」建立记忆，再用拼写和选择题巩固。穿插旧词复习，不只靠死记硬背。<strong>公共词书已准备就绪，无需任何导入。</strong></p><div class="hero-actions"><button class="btn primary" data-act="start-study" data-scope="all">✦ 全领域开始记忆 ↗</button><button class="btn secondary" data-act="start-quiz" data-type="spell" data-scope="all">✎ 开始拼写</button><button class="btn tertiary" data-act="start-quiz" data-type="phrase" data-scope="all">◇ 短语测试</button></div></section><div class="stats"><div class="stat"><strong>${total.toLocaleString()}</strong><span>词库总词条</span></div><div class="stat"><strong>${seen.toLocaleString()}</strong><span>已经完成流程的词</span></div><div class="stat"><strong>${pct(seen,total)}%</strong><span>总学习进度</span></div></div><div class="section-head"><div><h2>选择你的学习领域</h2><p>13 个主题词书 · 自由翻阅 · 领域内随机记忆</p></div><span class="mini-tag">CET-4</span></div><section class="group-grid">${GROUPS.map((g,i)=>{const count=wordsIn(g.id).length,n=seenCount(g.id);return `<button class="group-card" data-act="domain" data-id="${g.id}"><div class="group-top"><div class="group-volwrap"><span class="group-vol">${groupVol(i)}</span><span class="group-en">${esc(domainEn(g.id))}</span></div><span class="group-arrow">↗</span></div><h3>${g.name}</h3><p>${g.subtitle}</p><div class="group-art">${domainArt(g.id)}</div><div class="group-count"><span>${count} 词</span><span>已学 ${n}</span></div><div class="progress-wrap"><div class="progress-fill" style="width:${pct(n,count)}%"></div></div></button>`}).join('')}</section><div class="section-head"><div><h2>让记忆更有章法</h2><p>温故知新，从今天开始。</p></div></div><div class="two-col"><div class="glass-card intro-card"><h3>⏳ 记忆和测试连起来</h3><p>每学习一个单词，依次查看单词释义、常用短语和例句。系统隔几个新词自动插入已学词的复习。拼写与短语测试只从完整学完流程的单词里抽题，答错后还会再次考查。</p><span class="mini-tag">先学完再入库 · 自动记录</span></div><div class="glass-card intro-card"><h3>📚 扩充四级词库</h3><p>离线内置 ${seeded.size} 个主题精选词条。联网后可选择获取开源四级词库的约 7,508 个词条，附释义、音标、短语和例句；完成后缓存于本设备。</p><button class="btn btn-sm violet" data-act="import-online" ${isImporting?'disabled':''}>${isImporting?'正在读取…':expandedCount?'↻ 更新扩展词库':'↓ 联网扩充词库'}</button><button class="btn btn-sm tertiary" data-act="import-file" style="margin-left:7px">导入词库文件</button><div class="card-note" style="margin-top:12px">${expandedCount?`当前已启用扩展词库（已合并 ${expandedCount} 条）。`:'联网需可访问 GitHub；扩充失败不会影响离线词库。'} 音标来自公开词库 / 离线近似转写，发音使用设备语音功能。</div></div></div></main>`}
+function renderHome(){const total=entries.size,seen=seenCount('all');return `<main class="shell">${cet4PublicStatusHTML()}<section class="hero"><div class="eyebrow">WELCOME TO YOUR WORD ATLAS</div><h1>把每一个单词，<br>放进<span>真实的语境</span>里。</h1><p>从词书出发，按领域自由查阅。用「单词 → 短语 → 例句」建立记忆，再用拼写和选择题巩固。穿插旧词复习，不只靠死记硬背。<strong>公共词书已准备就绪，无需任何导入。</strong></p><div class="hero-actions"><button class="btn primary" data-act="start-study" data-scope="all">✦ 全领域开始记忆 ↗</button><button class="btn secondary" data-act="start-quiz" data-type="spell" data-scope="all">✎ 开始拼写</button><button class="btn tertiary" data-act="start-quiz" data-type="phrase" data-scope="all">◇ 短语测试</button></div></section><div class="stats"><div class="stat"><strong>${total.toLocaleString()}</strong><span>词库总词条</span></div><div class="stat"><strong>${seen.toLocaleString()}</strong><span>已经完成流程的词</span></div><div class="stat"><strong>${pct(seen,total)}%</strong><span>总学习进度</span></div></div><div class="section-head"><div><h2>选择你的学习领域</h2><p>13 个主题词书 · 自由翻阅 · 领域内随机记忆</p></div><span class="mini-tag">CET-4</span></div><section class="group-grid">${GROUPS.map((g,i)=>{const count=wordsIn(g.id).length,n=seenCount(g.id);return `<button class="group-card" data-act="domain" data-id="${g.id}"><div class="group-top"><div class="group-volwrap"><span class="group-vol">${groupVol(i)}</span><span class="group-en">${esc(domainEn(g.id))}</span></div><span class="group-arrow">↗</span></div><h3>${g.name}</h3><p>${g.subtitle}</p><div class="group-art">${domainArt(g.id)}</div><div class="group-count"><span>${count} 词</span><span>已学 ${n}</span></div><div class="progress-wrap"><div class="progress-fill" style="width:${pct(n,count)}%"></div></div></button>`}).join('')}</section><div class="section-head"><div><h2>让记忆更有章法</h2><p>温故知新，从今天开始。</p></div></div><div class="two-col"><div class="glass-card intro-card"><h3>⏳ 记忆和测试连起来</h3><p>每学习一个单词，依次查看单词释义、常用短语和例句。系统隔几个新词自动插入已学词的复习。拼写与短语测试只从完整学完流程的单词里抽题，答错后还会再次考查。</p><span class="mini-tag">先学完再入库 · 自动记录</span></div><div class="glass-card intro-card"><h3>📚 扩充四级词库</h3><p>离线内置 ${seeded.size} 个主题精选词条。联网后可选择获取开源四级词库的约 7,508 个词条，附释义、音标、短语和例句；完成后缓存于本设备。</p><button class="btn btn-sm violet" data-act="import-online" ${isImporting?'disabled':''}>${isImporting?'正在读取…':expandedCount?'↻ 更新扩展词库':'↓ 联网扩充词库'}</button><button class="btn btn-sm tertiary" data-act="import-file" style="margin-left:7px">导入词库文件</button><div class="card-note" style="margin-top:12px">${expandedCount?`当前已启用扩展词库（已合并 ${expandedCount} 条）。`:'联网需可访问 GitHub；扩充失败不会影响离线词库。'} 音标来自公开词库 / 离线近似转写，发音使用设备语音功能。</div></div></div></main>`}
 function renderDomain(){const g=GROUPS.find(x=>x.id===scope)||GROUPS[0],all=wordsIn(scope).sort((a,b)=>a.w.localeCompare(b.w));const filtered=all.filter(w=>filter==='all'||(filter==='seen'?isSeen(w.w):!isSeen(w.w)));const out=filtered.slice(0,visible);const no=domainNo(scope);return `<div class="domain-page-backdrop" aria-hidden="true">${domainArt(g.id)}</div><main class="shell domain-page-content"><div class="breadcrumb"><button class="linkish" data-act="home">所有领域</button><span> / </span><span>${g.name}</span></div><div class="domain-hero"><div class="domain-hero-art" aria-hidden="true">${domainArt(g.id)}</div><span class="domain-icon">${String(no).padStart(2,'0')}</span><div><div class="eyebrow">${groupVol(no-1)} · ${esc(domainEn(scope))}</div><h1>${g.name}</h1><p>${g.subtitle} · ${all.length} 个词条 · 已学 ${seenCount(scope)} 个</p></div></div>${actionButtons(scope)}<div class="section-head"><div><h2>打开词书，随心翻阅</h2><p>点任意单词可以查看音标、派生词、短语和例句</p></div></div><div class="filterbar"><button class="filterbtn ${filter==='all'?'on':''}" data-act="filter" data-id="all">全部 ${all.length}</button><button class="filterbtn ${filter==='seen'?'on':''}" data-act="filter" data-id="seen">已学 ${seenCount(scope)}</button><button class="filterbtn ${filter==='fresh'?'on':''}" data-act="filter" data-id="fresh">未学 ${all.length-seenCount(scope)}</button><span class="domain-info">显示 ${out.length} / ${filtered.length}</span></div>${out.length?`<div class="word-list">${out.map(w=>`<button class="word-row" data-act="detail" data-id="${esc(w.w)}"><div><strong>${esc(w.w)}</strong>${isSeen(w.w)?'<span class="tick"> ✓ 已学</span>':''}<div class="pron">${esc(w.ipa||'点开教读')} · ${posName(w.p)}</div></div><span class="word-zh">${esc(meaning(w))} ↗</span></button>`).join('')}</div>`:`<div class="empty"><span class="emoji">📖</span>目前没有符合条件的词条。<br>可以切换筛选条件继续浏览。</div>`}${out.length<filtered.length?'<button class="btn secondary view-more" data-act="more">继续加载更多 ↓</button>':''}</main>`}
 function markWord(s){if(!learned[s]){learned[s]={first:Date.now(),times:1};persist()}else {learned[s].times=(learned[s].times||1)+1;persist()}}
 function nextStudyRecord(){if(learning.index<learning.records.length-1){learning.index++;learning.phase=0;return true}let word=null,review=false;const pool=wordsIn(learning.scope).map(x=>x.w).filter(x=>isSeen(x));if(learning.newSince>=learning.reviewAfter&&pool.length){const latest=new Set(learning.records.slice(-3).map(x=>x.w)),eligible=pool.filter(w=>!latest.has(w));word=pick(eligible.length?eligible:pool);review=true;learning.newSince=0;learning.reviewAfter=rand(3,6)}else if(learning.remaining.length){word=learning.remaining.pop();learning.newSince++}else if(pool.length){word=pick(pool);review=true}if(!word)return false;learning.records.push({w:word,review,doneCycle:false});learning.index=learning.records.length-1;learning.phase=0;return true}
@@ -1138,12 +1144,75 @@ function openDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB){re
 async function idbGet(){const db=await openDB();return new Promise((res,rej)=>{const tx=db.transaction('store','readonly'),r=tx.objectStore('store').get('extended');r.onsuccess=()=>{db.close();res(r.result)};r.onerror=()=>{db.close();rej(r.error)}})}
 async function idbSet(obj){const db=await openDB();return new Promise((res,rej)=>{const tx=db.transaction('store','readwrite');tx.objectStore('store').put(obj,'extended');tx.oncomplete=()=>{db.close();res()};tx.onerror=()=>{db.close();rej(tx.error)}})}
 function mergeWords(list){let count=0;for(const incoming of list){const w=normalize(incoming);if(!w)continue;const old=entries.get(w.w);if(old){entries.set(w.w,{...w,...old,ipa:w.ipa||old.ipa,ph:old.ph?.length?old.ph:w.ph,ex:old.ex?.length?old.ex:w.ex,c:old.c})}else{entries.set(w.w,w);count++}}expandedCount=Math.max(expandedCount,list.length);return count}
+
+const CET4_PUBLIC_SOURCE='full_line_jsonl/sentence/%E4%B9%B1%E5%BA%8F/%E5%9B%9B%E7%BA%A7.jsonl';
+const CET4_PUBLIC_SOURCE_COUNT=4901;
+const CET4_PUBLIC_CACHE_KEY='cet4_source_4901_v1';
+let cet4PublicState='未加载',cet4PublicEntries=0,cet4PublicError='',cet4PublicLoading=false;
+const cet4SourceUrls=[
+ `https://raw.githubusercontent.com/KyleBing/english-vocabulary/master/${CET4_PUBLIC_SOURCE}`,
+ `https://cdn.jsdelivr.net/gh/KyleBing/english-vocabulary@master/${CET4_PUBLIC_SOURCE}`
+];
+async function getCachedCET4(){
+ const db=await openDB();return new Promise((resolve,reject)=>{
+  const tx=db.transaction('store','readonly'),r=tx.objectStore('store').get(CET4_PUBLIC_CACHE_KEY);
+  r.onsuccess=()=>{db.close();resolve(r.result)};r.onerror=()=>{db.close();reject(r.error)};
+ });
+}
+async function putCachedCET4(items){
+ const db=await openDB();return new Promise((resolve,reject)=>{
+  const tx=db.transaction('store','readwrite');tx.objectStore('store').put(items,CET4_PUBLIC_CACHE_KEY);
+  tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)};
+ });
+}
+function cet4PublicStatusHTML(){
+ const text=cet4PublicState==='ready'?`已载入约 ${cet4PublicEntries.toLocaleString()} 条四级扩充词，去重后当前共 ${entries.size.toLocaleString()} 词`:
+ cet4PublicState==='loading'?'正在加载四级扩充词库（首次联网约需 5 MB）…':
+ cet4PublicState==='error'?'四级扩充词库未能联网加载，仍可先学习现有词汇':'四级扩充词库准备中…';
+ return `<div class="cet4-public-status"><span class="cet4-public-dot ${cet4PublicState}"></span><span>${esc(text)}</span>${cet4PublicState==='error'?`<button type="button" data-act="cet4-retry" class="cet4-public-retry">重新加载</button>`:''}</div>`;
+}
+async function loadCET4PublicFull(force=false){
+ if(cet4PublicLoading)return;
+ cet4PublicLoading=true;cet4PublicError='';
+ let cached=false;
+ try{
+  const found=await Promise.race([getCachedCET4(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('缓存读取超时')),1800))]);
+  if(Array.isArray(found)&&found.length>=4000){
+   const valid=found.map(normalize).filter(Boolean);
+   mergeWords(valid);cet4PublicEntries=valid.length;cet4PublicState='ready';cached=true;render();
+  }
+ }catch(e){}
+ if(cached&&!force){cet4PublicLoading=false;return}
+ cet4PublicState='loading';render();
+ let err='';
+ for(const url of cet4SourceUrls){
+  try{
+   const controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),50000);
+   let response;
+   try{response=await fetch(url,{cache:'force-cache',signal:controller.signal})}
+   finally{clearTimeout(timeout)}
+   if(!response.ok)throw new Error(`HTTP ${response.status}`);
+   const rows=parseVocab(await response.text()),normalized=rows.map(normalize).filter(Boolean);
+   if(normalized.length<4400)throw new Error(`只读到 ${normalized.length} 词，疑似下载不完整`);
+   mergeWords(normalized);cet4PublicEntries=normalized.length;
+   cet4PublicState='ready';cet4PublicError='';
+   try{await Promise.race([putCachedCET4(normalized),new Promise((_,reject)=>setTimeout(()=>reject(new Error('缓存写入超时')),2800))])}catch(e){cet4PublicError='当前设备无法缓存扩充词库，联网时仍可使用'}
+   cet4PublicLoading=false;render();return;
+  }catch(e){err=e.message||'网络异常'}
+ }
+ cet4PublicLoading=false;
+ cet4PublicState=cached?'ready':'error';cet4PublicError=err;
+ render();
+}
+
 function parseVocab(text){let rows=[];const str=text.trim();if(str[0]==='['){const a=JSON.parse(str);if(!Array.isArray(a))throw Error('需要 JSON 数组');rows=a}else if(str[0]==='{'){try{const x=JSON.parse(str);rows=Array.isArray(x.words)?x.words:[x]}catch{rows=str.split(/\r?\n/).filter(Boolean).map(line=>JSON.parse(line))}}else rows=str.split(/\r?\n/).filter(Boolean).map(line=>JSON.parse(line));if(rows.length<20)throw new Error('词条数量较少，请检查文件格式');return rows}
 async function importRows(rows){const normalized=rows.map(normalize).filter(Boolean);if(normalized.length<20)throw Error('无效词库数据');const added=mergeWords(normalized);try{await idbSet(normalized)}catch(e){toast('已加载词库，但设备未能永久缓存')}render();return added}
-async function importOnline(){if(isImporting)return;isImporting=true;render();const path='full_line_jsonl/sentence/%E6%AD%A3%E5%BA%8F/%E5%9B%9B%E7%BA%A7.jsonl';const urls=[`https://raw.githubusercontent.com/KyleBing/english-vocabulary/master/${path}`,`https://cdn.jsdelivr.net/gh/KyleBing/english-vocabulary@master/${path}`];let err='';try{for(const u of urls){try{const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),30000);let resp;try{resp=await fetch(u,{signal:ctrl.signal,cache:'force-cache'})}finally{clearTimeout(timer)}if(!resp.ok)throw Error('HTTP '+resp.status);const txt=await resp.text(),rows=parseVocab(txt);const added=await importRows(rows);toast(`扩充完成，新增 ${added} 个单词`);return}catch(e){err=e.message||'无法连接'}}toast('下载失败。可改用「导入词库文件」：'+err)}finally{isImporting=false;render()}}
+async function importOnline(){if(isImporting)return;isImporting=true;render();const path='full_line_jsonl/sentence/%E4%B9%B1%E5%BA%8F/%E5%9B%9B%E7%BA%A7.jsonl';const urls=[`https://raw.githubusercontent.com/KyleBing/english-vocabulary/master/${path}`,`https://cdn.jsdelivr.net/gh/KyleBing/english-vocabulary@master/${path}`];let err='';try{for(const u of urls){try{const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),30000);let resp;try{resp=await fetch(u,{signal:ctrl.signal,cache:'force-cache'})}finally{clearTimeout(timer)}if(!resp.ok)throw Error('HTTP '+resp.status);const txt=await resp.text(),rows=parseVocab(txt);const added=await importRows(rows);toast(`扩充完成，新增 ${added} 个单词`);return}catch(e){err=e.message||'无法连接'}}toast('下载失败。可改用「导入词库文件」：'+err)}finally{isImporting=false;render()}}
 async function importLocal(file){if(!file)return;try{if(file.size>20*1024*1024)throw Error('文件太大（超过20MB）');const rows=parseVocab(await file.text());const added=await importRows(rows);toast(`导入成功，新增 ${added} 个词条`)}catch(e){toast('导入失败：'+(e.message||'文件格式不正确'))}}
 async function restore(){try{const a=await idbGet();if(Array.isArray(a)&&a.length){mergeWords(a);render()}}catch(e){} }
 function handleAction(el){const a=el.dataset.act,id=el.dataset.id,sc=el.dataset.scope||scope;
+ if(a==='cet4-retry'){loadCET4PublicFull(true);return}
  if(a==='nav-toggle'){navCollapsed=!navCollapsed;try{localStorage.setItem('wordAtlasBottomNavCollapsed_v1',navCollapsed?'1':'0')}catch(e){}render();return}
  if(['home','review','marked','account','listening-home','start-study','start-quiz','back-domain','go-back','domain','quiz-fresh','study-fresh'].includes(a))switchListeningContext();
 if(a==='account'){page='account';render();window.scrollTo(0,0)}else if(a==='cloud-save-config'){saveCloudConfigFromForm()}else if(a==='cloud-email-login'){cloudEmailLogin()}else if(a==='cloud-manual-sync'){cloudManualSync()}else if(a==='cloud-signout'){cloudSignOut()}else if(a==='cloud-copy-sql'){GenUICopySqlFallback()}else if(a==='home'){page='home';scope='all';render();window.scrollTo(0,0)}else if(a==='review'){page='review';librarySearch='';render();window.scrollTo(0,0)}else if(a==='marked'){page='marked';librarySearch='';render();window.scrollTo(0,0)}else if(a==='archive-rename'){const input=document.querySelector(`.archive-name-input[data-key="${CSS.escape(id)}"]`);renameExamMaterial(id,input?.value||'')}else if(a==='archive-mark'){toggleExamMark(id)}else if(a==='archive-replay'){openArchivedExam(id)}else if(a==='archive-detail'){const item=examHistory.find(x=>x.key===id);if(item)openOverlay({type:'archive-detail',item})}else if(a==='public-refresh'){loadPublicResources()}else if(a==='exam-import-open'){document.getElementById('examImportFile')?.click()}else if(a==='exam-template'){downloadExamTemplate()}else if(a==='exam-export'){exportExamBank()}else if(a==='exam-mark-current'){const item=currentExamHistory();if(item){toggleExamMark(item.key);if(listening?.question)listening.question.marked=item.marked;render()}}else if(a==='exam-save-current'){const item=currentExamHistory();if(item){const name=prompt('为这段听力起一个容易记住的名字：',examDisplayTitle(item));if(name!==null)renameExamMaterial(item.key,name)}}else if(a==='listening-home'){page='listening';if(!listening)listening={level:null,question:null,done:0,correct:0,wrong:0,autoPlayed:null};render();window.scrollTo(0,0)}else if(a==='listen-level'){startListening(id)}else if(a==='exam-section'){chooseExamSection(id)}else if(a==='exam-choice'){chooseExamAnswer(Number(el.dataset.qi),Number(id))}else if(a==='exam-check'){checkExamAnswers()}else if(a==='exam-transcript'){toggleExamTranscript()}else if(a==='exam-next'){nextExamGroup()}else if(a==='exam-seek-play'){playExamSequence(false,false,false)}else if(a==='exam-replay-current'){playExamSequence(false,false,true)}else if(a==='exam-replay-start'){playExamSequence(false,true,false)}else if(a==='listen-play'){if(listening?.question){if(listening.level==='exam')toggleExamPlayback(false);else speechListening(listening.question.audio,false)}}else if(a==='listen-slow'){if(listening?.question){if(listening.level==='exam')toggleExamPlayback(true);else speechListening(listening.question.audio,true)}}else if(a==='listen-check'){listeningAnswer()}else if(a==='listen-next'){nextListening()}else if(a==='go-back'||a==='back-domain')goBack();else if(a==='domain'){page='domain';scope=id;filter='all';visible=45;render();window.scrollTo(0,0)}else if(a==='filter'){filter=id;visible=45;render()}else if(a==='more'){visible+=45;render()}else if(a==='start-study')startStudy(sc);else if(a==='study-fresh'){if(confirm('重新开始本轮记忆？当前单词阶段会重新抽取，但已学记录不会清除。'))startStudyFresh(sc)}else if(a==='next-study')nextStep();else if(a==='prev-study')prevStep();else if(a==='start-quiz')startQuiz(el.dataset.type,sc);else if(a==='quiz-fresh'){if(confirm('重新抽取本轮练习题目？'))startQuizFresh(el.dataset.type,sc)}else if(a==='next-question'){nextQuestion();render();window.scrollTo(0,0)}else if(a==='check-spell'){answerQuestion($('#spellInput')?.value||'')}else if(a==='choose'){answerQuestion(id)}else if(a==='phrase-translate'){const row=el.closest('.phrase-choice-row');const note=row?.querySelector('.phrase-translation');if(note){const show=note.hidden;note.hidden=!show;el.textContent=show?'收起':'（译）';el.setAttribute('aria-expanded',String(show))}}else if(a==='speak'){speech(id)}else if(a==='test-speech'){speech('Hello! This is a pronunciation test.')}else if(a==='search'){searchTerm='';openOverlay({type:'search'})}else if(a==='detail'){openOverlay({type:'detail',w:id})}else if(a==='form'){openForm(id,el.dataset.base,el.dataset.label)}else if(a==='close-overlay')closeOverlay();else if(a==='about')openOverlay({type:'about'});else if(a==='import-online')importOnline();else if(a==='import-file')$('#importFile').click();else if(a==='reset-progress'){if(confirm('确定清空全部学习进度吗？此操作无法撤销。')){for(const k of Object.keys(learned))delete learned[k];persist();toast('已清空学习进度');render()}}}
@@ -1172,7 +1241,7 @@ document.addEventListener('visibilitychange',()=>{
  }
 });
 window.addEventListener('pagehide',()=>stopAllSpeech('pagehide'));
-storageRestore();render();restore().then(()=>loadPublicResources());
+storageRestore();render();Promise.allSettled([restore(),loadPublicResources(),loadCET4PublicFull()]);
 loadSiteCloudConfig().then(()=>{
  try{
   const savedCloud=readCloudConfig();
