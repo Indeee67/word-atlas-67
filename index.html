@@ -225,30 +225,76 @@ function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){let j=M
 function pick(items){return items[Math.floor(Math.random()*items.length)]}
 function rand(a,b){return a+Math.floor(Math.random()*(b-a+1))}
 let speechRequestId=0;
+let fallbackAudio=null;
+let fallbackAudioToken=0;
+let fallbackAudioNoticeShown=false;
+function youdaoAudioURL(text,type=2){
+  return 'https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(String(text||'').trim())+'&type='+type;
+}
+function stopFallbackAudio(){
+  fallbackAudioToken++;
+  if(fallbackAudio){
+    try{fallbackAudio.pause();fallbackAudio.removeAttribute('src');fallbackAudio.load()}catch(e){}
+    fallbackAudio=null;
+  }
+}
+function playFallbackAudio(text,slow=false,type=2,onDone=null,onFail=null){
+  const value=String(text||'').trim();
+  if(!value)return false;
+  stopFallbackAudio();
+  const token=++fallbackAudioToken;
+  let audio;
+  try{
+    audio=new Audio(youdaoAudioURL(value,type));
+    audio.preload='auto';
+    audio.playbackRate=slow?.78:1;
+    fallbackAudio=audio;
+    audio.onended=()=>{if(token!==fallbackAudioToken)return;fallbackAudio=null;onDone?.()};
+    audio.onerror=()=>{
+      if(token!==fallbackAudioToken)return;
+      fallbackAudio=null;
+      if(onFail)onFail();
+      else toast('在线英语音频暂时无法加载，请检查网络后重试，或使用 Chrome/Safari 打开网页。');
+    };
+    const result=audio.play();
+    if(result&&typeof result.catch==='function')result.catch(()=>{
+      if(token!==fallbackAudioToken)return;
+      fallbackAudio=null;
+      if(onFail)onFail();
+      else toast('浏览器未允许播放在线音频，请再次点击播放按钮。');
+    });
+    return true;
+  }catch(e){
+    if(onFail)onFail();
+    else toast('无法创建音频播放器，请尝试使用 Chrome/Safari 打开网页。');
+    return false;
+  }
+}
 function speech(s,slow=false){
+  const text=String(s||'').trim();if(!text)return;
   const synth=window.speechSynthesis;
   if(!synth||typeof window.SpeechSynthesisUtterance!=='function'){
-    toast('当前打开方式不支持语音。请用 Safari/Chrome 打开 HTTPS 网页，而不是文件预览。');return;
+    playFallbackAudio(text,slow,2);
+    if(!fallbackAudioNoticeShown){toast('当前浏览器没有系统朗读功能，已改用在线英语音频。首次播放需要网络。');fallbackAudioNoticeShown=true;}
+    return;
   }
-  const text=String(s||'').trim();if(!text)return;
+  stopFallbackAudio();
   const requestId=++speechRequestId;
   try{
     const u=new SpeechSynthesisUtterance(text);
     u.lang='en-US';u.rate=slow?.74:.86;u.pitch=1;
-    // iOS/Android may populate available voices only after page load; re-check at each tap.
     const voices=synth.getVoices?synth.getVoices():[];
     const en=voices.find(v=>String(v.lang).toLowerCase()==='en-us')||voices.find(v=>/^en-/i.test(v.lang||''))||voices.find(v=>/^en/i.test(v.lang||''));
     if(en){u.voice=en;u.lang=en.lang||'en-US';}
     u.onerror=(event)=>{
       if(requestId!==speechRequestId)return;
       const reason=event&&event.error;
-      if(reason==='not-allowed')toast('浏览器拦截了朗读：请直接点击喇叭按钮，并通过 HTTPS 网页打开。');
-      else toast('朗读失败：请检查系统是否安装英语语音，并调高媒体音量。');
+      if(reason==='not-allowed')toast('浏览器拦截了朗读：请直接点击喇叭按钮。');
+      else playFallbackAudio(text,slow,2);
     };
-    // Avoid cancel() on every tap: some mobile engines can silence a fresh utterance after an idle cancel.
     if(synth.speaking||synth.pending)synth.cancel();
     synth.speak(u);
-  }catch(e){toast('发音不可用：请用 Safari/Chrome 打开 HTTPS 网页，并检查系统英语语音设置。');}
+  }catch(e){playFallbackAudio(text,slow,2);}
 }
 function meaning(w){return (w?.z||'未提供释义').replace(/^\w+\.\s*/, '')}
 function posName(p){const x=String(p||'').replace(/\./g,'').toLowerCase();if(/^v|verb/.test(x))return '动词';if(/^n|noun/.test(x))return '名词';if(/^adj|adjective|a$/.test(x))return '形容词';if(/^adv|adverb/.test(x))return '副词';if(/^prep/.test(x))return '介词';if(/^conj/.test(x))return '连词';return '其他词性'}
@@ -697,8 +743,25 @@ function renderExamListening(){const q=listening?.question;if(q)syncExamHistory(
  ${q.showTranscript?`<div class="exam-transcript"><h3>听力原文与问题 · Transcript & Questions</h3><h4>Part 1 · 听力材料</h4>${examTranscriptHTML(examMaterialText(q)||"这组材料的原文暂不可用，请点击「换一组听力」生成新材料。") }<h4>Part 2 · 录音中的问题</h4><ol class="exam-transcript-questions">${q.questions.map((item,qi)=>`<li><strong>Question ${qi+1}.</strong> ${esc(item.prompt)}</li>`).join('')}</ol></div>`:''}
  <div class="exam-questions">${q.questions.map((item,qi)=>`<div class="exam-question"><h3>${q.result?`Q${qi+1}. ${esc(item.prompt)}`:`Question ${qi+1}`}</h3><div class="exam-answers">${item.options.map((option,oi)=>{const selected=q.choices[qi]===oi;const correct=q.result&&oi===item.correct;const wrong=q.result&&selected&&!correct;return `<button class="exam-option ${selected?'selected':''} ${correct?'right':''} ${wrong?'wrong':''}" data-act="exam-choice" data-qi="${qi}" data-id="${oi}" ${q.result?'disabled':''}><b>${'ABCD'[oi]}</b><span>${esc(option)}</span></button>`}).join('')}</div>${q.result?`<div class="exam-reason">${q.result.checks[qi]?'✓ 回答正确':'✗ 正确答案：'+ 'ABCD'[item.correct]} · ${esc(item.reason)}</div>`:''}</div>`).join('')}</div>
  ${!q.result?`<button class="btn primary quiz-submit" data-act="exam-check">提交本小节答案</button>`:`<div class="exam-score">本组正确 ${q.result.num} / ${q.result.total} 题</div><button class="btn primary quiz-submit" data-act="exam-next">换一组听力 →</button>`}
- </section>`}<p class="listen-note">问题只通过英文语音播报；答题前不显示问题文字。提交后可查看问题、解析和正确答案。原文按钮仅展开听力材料，不会重置答案。当前材料与选择结果保存在本设备。</p></main>`}
-function speechListening(text,slow=false){const synth=window.speechSynthesis;if(!synth||typeof window.SpeechSynthesisUtterance!=='function'){toast('当前浏览器不支持语音，请用 Safari/Chrome 打开 HTTPS 网页。');return}const t=String(text||'').trim();if(!t)return;try{const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=slow?.68:1;u.pitch=1;const voices=synth.getVoices?synth.getVoices():[];const en=voices.find(v=>String(v.lang).toLowerCase()==='en-us')||voices.find(v=>/^en-/i.test(v.lang||''));if(en){u.voice=en;u.lang=en.lang||'en-US'}u.onerror=e=>{if(e?.error==='not-allowed')toast('浏览器限制了自动播放，请点击原速播放按钮');else toast('语音播放失败，请检查系统英语语音设置')};stopAllSpeech('other-listening');synth.speak(u)}catch(e){toast('语音播放不可用，请检查浏览器设置')}}
+ </section>`}<p class="listen-note">问题只通过英文语音播报；答题前不显示问题文字。提交后可查看问题、解析和正确答案。原文按钮仅展开听力材料，不会重置答案。当前材料与选择结果保存在本设备。若浏览器没有系统朗读功能，将自动尝试在线音频播放（需要网络）。</p></main>`}
+function speechListening(text,slow=false){
+ const t=String(text||'').trim();if(!t)return;
+ const synth=window.speechSynthesis;
+ stopAllSpeech('other-listening');
+ if(!synth||typeof window.SpeechSynthesisUtterance!=='function'){
+   playFallbackAudio(t,slow,2);
+   if(!fallbackAudioNoticeShown){toast('当前浏览器没有系统朗读功能，已改用在线英语音频。首次播放需要网络。');fallbackAudioNoticeShown=true;}
+   return;
+ }
+ try{
+   const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=slow?.68:1;u.pitch=1;
+   const voices=synth.getVoices?synth.getVoices():[];
+   const en=voices.find(v=>String(v.lang).toLowerCase()==='en-us')||voices.find(v=>/^en-/i.test(v.lang||''));
+   if(en){u.voice=en;u.lang=en.lang||'en-US'}
+   u.onerror=e=>{if(e?.error==='not-allowed')toast('浏览器限制了自动播放，请点击原速播放按钮');else playFallbackAudio(t,slow,2)};
+   synth.speak(u);
+ }catch(e){playFallbackAudio(t,slow,2)}
+}
 
 
 
@@ -781,10 +844,12 @@ function listeningAudioContext(){
 function stopAllSpeech(reason='navigation'){
  window.__wordAtlasExamSpeechToken=(window.__wordAtlasExamSpeechToken||0)+1;
  ++speechRequestId;
+ stopFallbackAudio();
  const old=window.__wordAtlasExamPlayer;
  if(old){
   old.active=false;old.paused=false;old.pausedInGap=false;
   if(old.timer){clearTimeout(old.timer);old.timer=null}
+  if(old.audio){try{old.audio.pause();old.audio.removeAttribute('src');old.audio.load()}catch(e){}}
   old.speakNext=null;
  }
  window.__wordAtlasExamPlayer=null;
@@ -821,16 +886,32 @@ function pauseExamPlayback(){
  if(!player||!player.active)return;
  player.paused=true;
  if(player.timer){clearTimeout(player.timer);player.timer=null;player.pausedInGap=true}
- try{window.speechSynthesis.pause()}catch(e){}
+ if(player.mode==='audio'){try{player.audio?.pause()}catch(e){}}
+ else{try{window.speechSynthesis?.pause()}catch(e){}}
  setExamPlaybackButtons('paused',player.slowMode);
 }
 function resumeExamPlayback(){
  const player=window.__wordAtlasExamPlayer;
  if(!player||!player.active)return;
  player.paused=false;
- try{window.speechSynthesis.resume()}catch(e){}
+ if(player.mode==='audio'){
+   if(player.audio){
+     const p=player.audio.play();
+     if(p&&typeof p.catch==='function')p.catch(()=>toast('继续播放失败，请再次点击播放按钮。'));
+   }else if(player.pausedInGap){
+     player.pausedInGap=false;
+     const pending=player.pendingSegment;
+     if(player.timer)clearTimeout(player.timer);
+     player.timer=setTimeout(()=>{
+       player.timer=null;
+       if(!isCurrentExamSpeech(player,listening?.question)||player.paused)return;
+       player.pendingSegment=null;
+       if(pending)player.playSegment?.(pending);else player.speakNext?.();
+     },80);
+   }
+ }else{try{window.speechSynthesis?.resume()}catch(e){}}
  setExamPlaybackButtons('playing',player.slowMode);
- if(player.pausedInGap){
+ if(player.mode!=='audio'&&player.pausedInGap){
    player.pausedInGap=false;
    player.timer=setTimeout(()=>{player.timer=null;if(isCurrentExamSpeech(player,listening?.question)&&!player.paused)player.speakNext?.()},120);
  }
@@ -850,6 +931,110 @@ function toggleExamPlayback(slow=false){
  if(player&&!player.active&&player.paused&&player.slowMode===slow){resumeExamPlayback();return}
  playExamSequence(slow,false,false);
 }
+function playExamSequenceWithAudioFallback(slow=false,fromStart=false,onlyCurrent=false,q=null){
+ const target=q||listening?.question;
+ if(!target)return;
+ const parts=examPlaybackParts(target);
+ if(!parts.length){toast('这组听力材料为空，请选择其他听力材料。');return}
+ const startIndex=fromStart?0:Math.max(0,Math.min(parts.length-1,Number(target.playbackIndex)||0));
+ const material=examMaterialText(target);
+ const segments=[];
+ if(parts[startIndex].kind==='material'){
+   const materialStart=parts[startIndex].start;
+   const materialEnd=onlyCurrent?parts[startIndex].end:material.length;
+   const turns=target.section==='dialogue'?dialogueTurns(material):[{speaker:null,start:0,end:material.length,text:material}];
+   turns.forEach(turn=>{
+     const cutFrom=Math.max(materialStart,turn.start),cutTo=Math.min(materialEnd,turn.end);
+     if(cutTo<=cutFrom)return;
+     const raw=material.slice(cutFrom,cutTo),left=(raw.match(/^\s*/)||[''])[0].length;
+     const text=raw.trim();
+     if(text)segments.push({kind:'material',text,start:cutFrom+left,end:cutTo,voiceType:turn.speaker==='man'?1:2});
+   });
+   if(!onlyCurrent){
+     (target.questions||[]).forEach((item,i)=>segments.push({kind:'question',text:`Question ${i+1}. ${item.prompt}`,questionIndex:i,voiceType:2,gapBefore:i===0?850:1600}));
+   }
+ }else if(parts[startIndex].kind==='question'){
+   if(onlyCurrent){
+     const item=target.questions?.[parts[startIndex].questionIndex];
+     if(item)segments.push({kind:'question',text:`Question ${parts[startIndex].questionIndex+1}. ${item.prompt}`,questionIndex:parts[startIndex].questionIndex,voiceType:2});
+   }else{
+     parts.slice(startIndex).filter(p=>p.kind==='question').forEach((part,i)=>segments.push({kind:'question',text:part.text,questionIndex:part.questionIndex,voiceType:2,gapBefore:i?1600:0}));
+   }
+ }
+ if(!segments.length){toast('没有找到可播放的听力内容。');return}
+ const player={mode:'audio',token:window.__wordAtlasExamSpeechToken,active:true,paused:false,pausedInGap:false,timer:null,audio:null,segments,index:0,slowMode:slow};
+ window.__wordAtlasExamPlayer=player;
+ const current=()=>isCurrentExamSpeech(player,target);
+ const finish=()=>{
+   if(!current())return;
+   player.active=false;player.paused=false;player.pausedInGap=false;
+   if(player.timer)clearTimeout(player.timer);
+   player.timer=null;player.audio=null;
+   setExamPlaybackButtons('idle');
+ };
+ const setProgressForSegment=seg=>{
+   if(seg.kind==='question'){
+     const ix=parts.findIndex(p=>p.kind==='question'&&p.questionIndex===seg.questionIndex);
+     if(ix>=0)updateExamProgressUI(target,parts,ix);
+   }else{
+     let ix=parts.findIndex(p=>p.kind==='material'&&p.start<=seg.start&&p.end>=seg.start);
+     if(ix<0)ix=parts.findIndex(p=>p.kind==='material'&&p.start>=seg.start);
+     if(ix>=0)updateExamProgressUI(target,parts,ix);
+   }
+ };
+ const playNext=()=>{
+   if(!current()||player.paused)return;
+   if(player.index>=segments.length){finish();return}
+   const seg=segments[player.index++];
+   if(seg.gapBefore){
+     player.pausedInGap=true;
+     player.timer=setTimeout(()=>{
+       player.timer=null;player.pausedInGap=false;
+       if(current()&&!player.paused)playSegment(seg);
+     },seg.gapBefore);
+     player.pendingSegment=seg;
+     return;
+   }
+   playSegment(seg);
+ };
+ const playSegment=seg=>{
+   if(!current()||player.paused)return;
+   player.pendingSegment=null;
+   setProgressForSegment(seg);
+   const audio=new Audio(youdaoAudioURL(seg.text,seg.voiceType||2));
+   player.audio=audio;
+   audio.preload='auto';
+   audio.playbackRate=slow?.78:1;
+   audio.onended=()=>{if(!current())return;player.audio=null;playNext()};
+   audio.onerror=()=>{
+     if(!current())return;
+     stopAllSpeech('fallback-audio-error');
+     toast('在线听力音频加载失败。请检查网络，或改用 Chrome/Safari 打开 HTTPS 网站。');
+   };
+   const promise=audio.play();
+   if(promise&&typeof promise.catch==='function')promise.catch(()=>{
+     if(!current())return;
+     stopAllSpeech('fallback-audio-blocked');
+     toast('浏览器阻止了音频播放，请再次点击播放按钮。');
+   });
+ };
+ player.speakNext=playNext;
+ player.playSegment=playSegment;
+ if(!window.speechSynthesis&&!fallbackAudioNoticeShown){
+   toast('当前浏览器没有系统朗读功能，已切换在线音频。对话使用不同英语发音版本区分角色；需要网络。');
+   fallbackAudioNoticeShown=true;
+ }
+ if(!onlyCurrent&&segments[0]?.kind==='question'&&segments[0].gapBefore==null)segments[0].gapBefore=0;
+ if(segments[0]?.gapBefore>0){
+   const first=segments[0];
+   player.index=1;
+   player.pausedInGap=true;
+   player.pendingSegment=first;
+   player.timer=setTimeout(()=>{player.timer=null;player.pausedInGap=false;player.pendingSegment=null;if(current()&&!player.paused)playSegment(first)},first.gapBefore);
+ }else playNext();
+ setExamPlaybackButtons('playing',slow);
+}
+
 function playExamSequence(slow=false,fromStart=false,onlyCurrent=false){
  stopAllSpeech('new-play');
  const q=listening?.question;
@@ -858,9 +1043,9 @@ function playExamSequence(slow=false,fromStart=false,onlyCurrent=false){
  if(!parts.length){toast('这组听力材料为空，请选择其他听力材料。');return}
  const synth=window.speechSynthesis;
  if(!synth||typeof window.SpeechSynthesisUtterance!=='function'){
-   toast('当前浏览器不支持语音，请使用 Safari/Chrome 打开 HTTPS 网页。');return;
+   playExamSequenceWithAudioFallback(slow,fromStart,onlyCurrent,q);return;
  }
- const player={token:window.__wordAtlasExamSpeechToken,active:true,paused:false,pausedInGap:false,timer:null,speakNext:null,slowMode:slow};
+ const player={mode:'speech',token:window.__wordAtlasExamSpeechToken,active:true,paused:false,pausedInGap:false,timer:null,speakNext:null,slowMode:slow};
  window.__wordAtlasExamPlayer=player;
  const startIndex=fromStart?0:Math.max(0,Math.min(parts.length-1,Number(q.playbackIndex)||0));
  let index=startIndex;
