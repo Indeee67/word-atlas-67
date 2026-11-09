@@ -1,5 +1,7 @@
 {
-  "url": "",
-  "anonKey": "",
-  "_help": "网站管理员：填入公开的 Supabase Project URL 和 publishable/anon key；千万不要填 secret/service_role key。"
+  "url": "https://lylazafkxrhqnilhanmk.supabase.co",
+  "anonKey": "sb_publishable_o5ImmAx_29UMcDjjh-MMTA_zcr6sldl",
+  "adminEmails": [
+    "2037662489@qq.com"
+  ]
 }
